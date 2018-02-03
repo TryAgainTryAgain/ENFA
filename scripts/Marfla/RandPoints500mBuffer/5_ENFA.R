@@ -57,7 +57,7 @@ str(Marflahabvars)
 str(marfla.pa)
 head(marfla.pa)
 tail(marfla.pa)
-View(marfla.pa)
+
 
 # Used habitat
 # If using a CSV that has both used and unused, Go back and get used and unused from before we pulled that column out. 
@@ -162,4 +162,27 @@ ordihull(habavail.pca$li, groups=ua.fac.used, show.groups="Used", col="blue",
          draw="lines", lwd=3)
 legend(7,0, legend=c("Available","Used"), pch=21, pt.bg=c("green","blue"),
        cex=0.9, box.lty=0)
+
+
+# Plot script from Rob - Dec 20 --------------------------------------------------
+
+# Graph of used vs. availability polygons from the ENFA with the environmental
+# variables projected on the niche envelope
+#Note: I could not get this to run on 
+# Fri Feb  2 22:41:02 2018 ------------------------------
+
+?plot
+plot(marfla.enfa$li, pch=21, bg=plotcols, cex=0, xlim=c(-6,6), ylim=c(-6,4),
+     xlab="Marginality", ylab="Specialization", cex.main=0.9,
+     main="Yellow-Bellied Marmot - Sierra Nevada\nENFA")
+ordihull(marfla.enfa$li, groups=ua.fac, show.groups="Available", col="green",
+         lwd=2)
+ordihull(marfla.enfa$li, groups=ua.fac, show.groups="Used", col="blue", lwd=2)
+arrows(0,0,marfla.enfa$co[,1]*5, marfla.enfa$co[,2]*5, length=0.05, angle=30)
+text(marfla.enfa$co*5, labels=rownames(marfla.enfa$co), cex=0.6,
+     pos=c(1,1,2,3,3,2,2,3,1,1,1,4,1,4,3,4))
+points(margin.pt, 0, pch=21, bg="red", cex=1.5)
+abline(h=0, v=0, lty=3)
+legend(3,-3, legend=c("Available","Used"), lty=1, col=c("green", "blue"),
+       lwd=2, cex=0.8, box.lty=0)
 
